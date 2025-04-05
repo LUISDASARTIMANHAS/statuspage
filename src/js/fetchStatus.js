@@ -14,7 +14,7 @@ export async function fetchStatus() {
     const response = await fetch(apiUrl, { cache: "no-store" });
     if (!response.ok)
       throw new Error(`Erro ${response.status}: ${response.statusText}`);
-    const data = await response.json();
+    const database = await response.json();
 
     const now = new Date();
     const timeLabel = now.toLocaleTimeString();
@@ -22,7 +22,7 @@ export async function fetchStatus() {
 
     statusTable.innerHTML = "";
 
-    data.forEach((site) => {
+    database.data.forEach((site) => {
       const row = document.createElement("tr");
 
       const nameCell = document.createElement("td");
