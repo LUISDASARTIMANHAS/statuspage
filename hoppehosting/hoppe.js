@@ -1,6 +1,6 @@
-import { fetchStatus } from "/src/js/fetchStatus.js";
-import { createChart, updateChart } from "/src/js/chartUtils.js";
-import { updateTable } from "/src/js/render.js";
+import { fetchStatus } from "../src/js/fetchStatus.js";
+import { createChart, updateChart } from "../src/js/chartUtils.js";
+import { updateTable } from "../src/js/render.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 	const ctx = document.getElementById("statusChart").getContext("2d");
