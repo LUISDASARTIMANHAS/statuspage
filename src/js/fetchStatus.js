@@ -1,7 +1,21 @@
-export async function fetchStatus(updateTable, updateChart, chartData, chartLabels, maxDataPoints) {
-  const apiUrl = "https://pingobras-sg.glitch.me/serverstatus";
+export async function fetchStatus(
+  updateTable,
+  updateChart,
+  chartData,
+  chartLabels,
+  maxDataPoints,
+  type
+) {
+  const defaultApiUrl = "https://pingobras-sg.glitch.me/serverstatus";
   const statusTable = document.getElementById("statusTable");
   const lastUpdated = document.getElementById("lastUpdated");
+  let apiUrl;
+
+  if (!type) {
+    apiUrl = defaultApiUrl;
+  } else {
+    apiUrl = `${defaultApiUrl}?type=${type}`;
+  }
 
   statusTable.innerHTML = `<tr><td colspan="4" class="updating">Atualizando...</td></tr>`;
   lastUpdated.textContent = "Atualizando...";
@@ -13,7 +27,13 @@ export async function fetchStatus(updateTable, updateChart, chartData, chartLabe
     const updatedAt = new Date(result.lastUpdated);
 
     lastUpdated.textContent = `Última atualização: ${updatedAt.toLocaleTimeString()}`;
-    updateTable(data, chartData, chartLabels, updatedAt.toLocaleTimeString(), maxDataPoints);
+    updateTable(
+      data,
+      chartData,
+      chartLabels,
+      updatedAt.toLocaleTimeString(),
+      maxDataPoints
+    );
     updateChart(chartData, chartLabels);
   } catch (err) {
     console.error(err);
